@@ -30,7 +30,7 @@ namespace MV_to_do_list.Services
             {
                 Title = todoDTO.Title,
                 Description = todoDTO.Description,
-                Status = todoDTO.Status
+                //Status = todoDTO.Status não criar todo concluido
             };
 
             _context.AddAsync(newTodo);
