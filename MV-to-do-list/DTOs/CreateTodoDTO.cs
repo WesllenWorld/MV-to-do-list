@@ -1,6 +1,6 @@
 ﻿namespace MV_to_do_list.DTOs
 {
-    public class TodoDTO
+    public class CreateTodoDTO
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
