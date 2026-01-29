@@ -22,15 +22,15 @@ namespace MV_to_do_list.Controllers
         public async Task<IActionResult> GetTodos()
         {
             //return await _context.Tarefas.ToListAsync();
-            var todos = await todoService.GetTodosService();
+            var todos = await todoService.GetAllTodos();
             return Ok(todos);
         }
 
         // GET: Retornar uma tarefa específica pelo identificador
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetTodoById(long Id)
+        public async Task<IActionResult> GetTodoById(long id)
         {
-            var todo = await todoService.GetTodoByIdService(Id);
+            var todo = await todoService.GetTodoById(id);
 
             if (todo == null)
             {
@@ -41,12 +41,58 @@ namespace MV_to_do_list.Controllers
         }
 
         //POST: Cadastrar uma nova tarefa
-        //[HttpPost]
+        [HttpPost]
+        public async Task<IActionResult> CreateTodo([FromBody] CreateTodoDTO todoDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var todo = await todoService.CreateTodo(todoDTO);
+                return CreatedAtAction("Todo", new { id = todo.Id }, todo);
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"Internal server error: {e.Message}");
+            }
+        }
 
 
         //PUT: Atualizar o status da tarefa
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTodoStatusById(long id, [FromBody] UpdateTodoStatusDTO updateTodo)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            bool updated = await todoService.UpdateTodoStatusById(id, updateTodo);
+            if (updated)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
         //DELETE: Remover uma tarefa
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTodoById(long id)
+        {
+            bool todo = await todoService.DeleteTodoById(id);
+            if (todo)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
+                
+        }
 
     }
 }
