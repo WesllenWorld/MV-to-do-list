@@ -7,7 +7,7 @@ using MV_to_do_list.Services;
 namespace MV_to_do_list.Controllers
 {
     [ApiController]
-    [Route("api/tarefas")]
+    [Route("api/[controller]")]
     public class TodoController : ControllerBase
     {
         //injeção de dependência do Service
@@ -50,7 +50,7 @@ namespace MV_to_do_list.Controllers
             try
             {
                 var todo = await todoService.CreateTodo(todoDTO);
-                return CreatedAtAction("Todo", new { id = todo.Id }, todo);
+                return CreatedAtAction(nameof(GetTodoById), new { id = todo.Id }, todo);
 
             }
             catch (Exception e)
