@@ -14,17 +14,33 @@ namespace MV_to_do_list.Services
         {
             _context = context;
         }
-        public async Task<IEnumerable<Todo>> GetAllTodos()
+        public async Task<IEnumerable<ResponseTodoDTO>> GetAllTodos()
         {
-            return await _context.Todos.ToListAsync();
+            return await _context.Todos.Select(x => new ResponseTodoDTO { 
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                Status = x.Status,
+                CreatedAt = x.CreatedAt,
+
+            }).ToListAsync();
         }
 
-        public async Task<Todo> GetTodoById(long id)
+        public async Task<ResponseTodoDTO> GetTodoById(long id)
         {
-            return await _context.Todos.FindAsync(id);
+            //return await _context.Todos.FindAsync(id);
+            return await _context.Todos.Where(x => x.Id == id).Select(x => new ResponseTodoDTO
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                Status = x.Status,
+                CreatedAt = x.CreatedAt,
+            }).SingleOrDefaultAsync();
+
         }
 
-        public async Task<Todo> CreateTodo(CreateTodoDTO todoDTO)
+        public async Task<ResponseTodoDTO> CreateTodo(CreateTodoDTO todoDTO)
         {
             Todo newTodo = new Todo
             {
@@ -36,7 +52,16 @@ namespace MV_to_do_list.Services
             _context.AddAsync(newTodo);
             await _context.SaveChangesAsync();
 
-            return newTodo;
+            return new ResponseTodoDTO
+            {
+                //transfira do todo pro dto
+                Id = newTodo.Id,
+                Title = newTodo.Title,
+                Description = newTodo.Description,
+                Status = newTodo.Status,
+                CreatedAt = newTodo.CreatedAt,
+
+            };
         }
 
         public async Task<bool> UpdateTodoStatusById(long id, UpdateTodoStatusDTO updateTodo)
