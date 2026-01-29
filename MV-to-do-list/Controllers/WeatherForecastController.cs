@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MV_to_do_list.Controllers
 {
+    //vestígio padrão do template do .NET. não afetará o funcionamento do teste técnico caso o candidato esqueça de apagar
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
