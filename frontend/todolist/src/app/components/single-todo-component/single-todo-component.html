@@ -1,3 +1,10 @@
-<p>single-todo-component works!</p>
+<div class="single-todo-container">
+    <h3>{{ todo.title }}</h3>
+    <p>{{ todo.description }}</p>
+    <p [ngStyle]="{'background-color': todo.status ? 'green' : 'orange'}">Status: {{ todo.status ? 'Concluída' :
+        'Pendente' }}</p>
 
-<button (click)="onClick()">Click me!</button>
+    <button (click)="delete.emit(todo.id)">Delete</button>
+    <button (click)="update.emit({ id: todo.id, updatedTodo: { status: !todo.status } })">Toggle Status</button>
+</div>
+<!-- teste de api <button (click)="onClick()">Click me!</button> -->

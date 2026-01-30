@@ -1,0 +1,28 @@
+
+
+.single-todo-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.container h3,
+.container p {
+  word-wrap: break-word; /* quebras palavras grandes */
+  overflow-wrap: break-word; /* compatibilidade */
+  margin: 0;
+  overflow-y: auto; /* evita espaçamentos extras */
+}
+
+h3 {
+    font-size: 2.5em;
+    border-bottom: 3px solid #ccc;
+}
+
+p {
+    font-size: 2em;
+    overflow-y: auto;
+    
+}

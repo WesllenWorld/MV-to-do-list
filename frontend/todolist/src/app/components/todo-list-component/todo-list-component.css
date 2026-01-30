@@ -1,0 +1,34 @@
+
+
+.todo-list-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    margin-top: 10px;
+
+}
+
+.top-buttons-container{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.add-todo-form {
+    display: flex;
+    align-items: center;
+    gap: 3em;
+    justify-content: center;
+    width: 80%;
+    margin:auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #e9e9e9;
+}
+
+
+

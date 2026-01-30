@@ -1,0 +1,20 @@
+<div class="top-buttons-container">
+    <button class="add-todo-button"(click)="toggleAddForm()">
+    {{ showAddForm ? 'Cancelar' : 'Adicionar Todo' }}
+  </button>
+</div>
+
+<div *ngIf="showAddForm" class="add-todo-form">
+  <input type="text" placeholder="Título" [(ngModel)]="newTitle" name="title" required />
+  <input type="text" placeholder="Descrição" [(ngModel)]="newDescription" name="description" />
+  <button (click)="addTodo()">Salvar</button>
+</div>
+
+<div class="todo-list-container" *ngIf="todos.length">
+  <app-single-todo-component
+    *ngFor="let todo of todos"
+    [todo]="todo"
+    (delete)="deleteTodo($event)"
+    (update)="updateTodo($event.id, $event.updatedTodo)"
+  ></app-single-todo-component>
+</div>
