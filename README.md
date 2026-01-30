@@ -15,7 +15,7 @@ O Mv-to-do-list é um app de lista de tarefas, conhecidas como To-dos. É um app
 - Exclusão de tarefa (DELETE de tarefa por ID)
 
 ## 3. Tecnologias utilizadas:
-- .NET 8
+- .NET Framework 4.8.1
 - ASP.NET Web API + Entity Framework
 - Angular 21.1.2
 - SQL Server
@@ -37,26 +37,21 @@ cd MV-to-do-list
 
 ```console
 cd backend
+cd mv-todolist
 ```
 
-2. Baixar todos os pacotes NuGet:
+2. Abra a solução .sln (recomendado: com o visual studio):
+
+3. Execute pelo Visual Studio, clicando no ícone de execução
+
+* Nota: o pacote Microsoft.CodeDom.Providers.DotNetCompilerPlatform depende de alguns arquivos do compilador Roslyn, e como ela não é versionada, nem sempre o NuGet fará sua restauração automaticamente, causando o erro de "não foi possível localizar parte do caminho ...\bin\roslyn\csc.exe". Neste caso, execute no powershell ou pm:
 
 ```console
-dotnet restore
+Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -reinstall
+Update-Package -reinstall
 ```
 
-3. Aplicar migrations para o banco:
-
-```console
-dotnet ef database update
-```
-
-4. Executar a API no diretório MV-to-do-list:
-
-```console
-cd MV-to-do-list
-dotnet run
-```
+Com isso, executar o projeto novamente será o suficiente para que ele rode com sucesso
 
 ### Frontend:
 
@@ -74,3 +69,5 @@ ng serve
 ```
 
 (ou ng serve --open, para abrir automaticamente no navegador)
+
+Com a API e o Frontend Angular rodando simultaneamente, o MV-to-do-list estará pronto para ser utilizado.
