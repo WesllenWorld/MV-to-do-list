@@ -26,8 +26,9 @@ export class TodoService {
   }
 
   createTodo(todoDTO: CreateTodo): Observable<Todo> {
-    return this.http.post<Todo>(this.apiUrl, todoDTO);
-  }
+    return this.http.post<Todo>(`${this.apiUrl}`, todoDTO, {
+      headers: { 'Content-Type': 'application/json' }
+    });}
 
   updateTodoStatusById(id: number, UpdateTodo: any): Observable<void> {
     const url = `${this.apiUrl}/${id}`;

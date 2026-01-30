@@ -1,4 +1,4 @@
 export interface CreateTodo {
-  title: string
-  description: string
+  Title: string
+  Description: string
 }

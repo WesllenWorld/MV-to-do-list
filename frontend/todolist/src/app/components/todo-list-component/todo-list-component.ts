@@ -39,35 +39,50 @@ export class TodoListComponent implements OnInit {
   }
 
   addTodo() {
-    //if (!this.newTitle.trim()) alert('O título é obrigatório.');
+  // if (!this.newTitle.trim()) alert('O título é obrigatório.');
 
-    const createTodo = {
-      title: this.newTitle,
-      description: this.newDescription
-    };
+  const createTodo = {
+    Title: this.newTitle,
+    Description: this.newDescription
+  };
 
-    this.todoService.createTodo(createTodo).subscribe({
-      next: todo => {
-        this.todos.push(todo);
-        this.newTitle = '';
-        this.newDescription = '';
-        this.showAddForm = false;
-        this.cdr.detectChanges();
-      },
-      error: (err: any) => {
-        if (err.status === 400 && err.error) {
-          const messages = Object.values(err.error.errors)
-            .map((x: any) => (Array.isArray(x) ? x.join(', ') : String(x)))
-            .join('\n');
+  this.todoService.createTodo(createTodo).subscribe({
+    next: (todo) => {
+      this.todos.push(todo);
+      this.newTitle = '';
+      this.newDescription = '';
+      this.showAddForm = false;
+      this.cdr.detectChanges();
+    },
+    error: (err: any) => {
+      let messages = '';
 
-          alert('Erro ao criar todo:\n' + messages);
+      if (err.status === 400) {
+        if (err.error) {
+          
+          if (typeof err.error === 'object') {
+            
+            messages = Object.values(err.error)
+              .flatMap((x: any) => Array.isArray(x) ? x : [x])
+              .map((x: any) => typeof x === 'string' ? x : JSON.stringify(x))
+              .join('\n');
+          } else {
+            
+            messages = String(err.error);
+          }
         } else {
-          console.error(err);
-          alert('Erro inesperado ao criar todo');
+          messages = 'Erro de validação desconhecido.';
         }
+
+        alert('Erro ao criar todo:\n' + messages);
+      } else {
+        console.error(err);
+        alert('Erro inesperado ao criar todo');
       }
-    });
-  }
+    }
+  }); 
+} 
+
 
 
 
@@ -86,6 +101,14 @@ export class TodoListComponent implements OnInit {
   }
 
   deleteTodo(id: number) {
+    console.log('ID recebido:', id);
+    console.log('Tipo do ID:', typeof id);
+
+    if (!id || id === undefined) {
+      console.error('ID está undefined ou inválido!');
+      return;
+    }
+
     this.todoService.deleteTodoById(id).subscribe({
       next: () => {
         this.todos = this.todos.filter(t => t.id !== id);
