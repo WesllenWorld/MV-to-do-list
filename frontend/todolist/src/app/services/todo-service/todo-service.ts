@@ -8,7 +8,8 @@ import { CreateTodo } from '../../models/create-todo';
   providedIn: 'root',
 })
 export class TodoService {
-  private apiUrl = 'https://localhost:7168/api/tarefas';
+  //private apiUrl = 'https://localhost:7168/api/tarefas';
+  private apiUrl = 'https://localhost:44303/api/tarefas';
 
   constructor(private http: HttpClient) { }
 
