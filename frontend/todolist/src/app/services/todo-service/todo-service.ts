@@ -24,19 +24,18 @@ export class TodoService {
 
   }
 
-  createTodo(todoDTO: any): Observable<CreateTodo> {
-    return this.http.post<CreateTodo>(this.apiUrl, todoDTO);
+  createTodo(todoDTO: CreateTodo): Observable<Todo> {
+    return this.http.post<Todo>(this.apiUrl, todoDTO);
   }
 
-  updateTodoStatusById(id: number, UpdateTodo: any): void {
+  updateTodoStatusById(id: number, UpdateTodo: any): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
-    this.http.put(url, UpdateTodo);
-  
+    return this.http.put<void>(url, UpdateTodo);
   }
 
   //falta o delete
-  deleteTodoById(id: number): void {
+  deleteTodoById(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
-    this.http.delete(url);
+    return this.http.delete<void>(url);
   }
 }

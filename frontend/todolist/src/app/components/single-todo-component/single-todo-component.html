@@ -1,10 +1,27 @@
 <div class="single-todo-container">
-    <h3>{{ todo.title }}</h3>
-    <p>{{ todo.description }}</p>
-    <p [ngStyle]="{'background-color': todo.status ? 'green' : 'orange'}">Status: {{ todo.status ? 'Concluída' :
-        'Pendente' }}</p>
+    <div class="todo-header" [ngStyle]="{'background-color': todo.status ? '#6dc288' : '#cdcdcd'}">
+        <div class="title-container">
+            <h3>{{ todo.title }}</h3>
+            <p>Status: {{ todo.status ?
+                'Concluída' :
+                'Pendente' }}</p>
+        </div>
+        <div class="buttons-container">
+            <button class="update-button"
+                (click)="update.emit({ id: todo.id, updatedTodo: { status: !todo.status } })">Alterar status</button>
+            <button class="delete-button" (click)="delete.emit(todo.id)">Excluir</button>
+        </div>
 
-    <button (click)="delete.emit(todo.id)">Delete</button>
-    <button (click)="update.emit({ id: todo.id, updatedTodo: { status: !todo.status } })">Toggle Status</button>
+    </div>
+
+
+    <div class="description-container">
+        <p class="todo-description">{{ todo.description }}</p>
+    </div>
+
+
+
+
+
 </div>
 <!-- teste de api <button (click)="onClick()">Click me!</button> -->

@@ -5,9 +5,9 @@
 </div>
 
 <div *ngIf="showAddForm" class="add-todo-form">
-  <input type="text" placeholder="Título" [(ngModel)]="newTitle" name="title" required />
-  <input type="text" placeholder="Descrição" [(ngModel)]="newDescription" name="description" />
-  <button (click)="addTodo()">Salvar</button>
+  <input class="input" type="text" placeholder="Título" [(ngModel)]="newTitle" name="title" required />
+  <textarea class="input" placeholder="Descrição" [(ngModel)]="newDescription" rows="4"></textarea>
+  <button class="add-todo-button" (click)="addTodo()">Salvar</button>
 </div>
 
 <div class="todo-list-container" *ngIf="todos.length">
