@@ -1,12 +1,15 @@
-﻿using System.Net;
-using System.Web.Http;
-using MV_to_do_list.DTOs;
+﻿using MV_to_do_list.DTOs;
 using MV_to_do_list.Models;
 using MV_to_do_list.Services;
+using System.Net;
 using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace MV_to_do_list.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    //[DisableCors]
     [RoutePrefix("api/tarefas")]
     public class TodoController : ApiController
     {
@@ -14,8 +17,7 @@ namespace MV_to_do_list.Controllers
 
         public TodoController()
         {
-            // Se você não tiver DI configurado ainda,
-            // pode instanciar o service aqui (ou usar um container)
+            
             todoService = new TodoService();
         }
 
@@ -30,7 +32,7 @@ namespace MV_to_do_list.Controllers
 
         // GET api/tarefas/{id}
         [HttpGet]
-        [Route("{id:long}")]
+        [Route("{id:long}", Name = "GetTodoById")]
         public async Task<IHttpActionResult> GetTodoById(long id)
         {
             var todo = await todoService.GetTodoById(id);
@@ -45,13 +47,15 @@ namespace MV_to_do_list.Controllers
         [Route("")]
         public async Task<IHttpActionResult> CreateTodo([FromBody] CreateTodoDTO todoDTO)
         {
+            
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
                 var todo = await todoService.CreateTodo(todoDTO);
-                return CreatedAtRoute("", new { id = todo.Id }, todo);
+                return CreatedAtRoute("GetTodoById", new { id = todo.Id }, todo);
             }
             catch (System.Exception e)
             {

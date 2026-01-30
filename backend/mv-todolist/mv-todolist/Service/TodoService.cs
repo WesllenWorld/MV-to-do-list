@@ -15,7 +15,7 @@ namespace MV_to_do_list.Services
 
         public TodoService()
         {
-            // Em ASP.NET Web API clássico, você pode instanciar assim
+            
             _context = new AppDbContext();
         }
 
@@ -30,7 +30,7 @@ namespace MV_to_do_list.Services
                     Status = x.Status,
                     CreatedAt = x.CreatedAt
                 })
-                .ToListAsync();  // EF6 suporta ToListAsync :contentReference[oaicite:1]{index=1}
+                .ToListAsync();  
 
             return todos;
         }
@@ -47,7 +47,7 @@ namespace MV_to_do_list.Services
                     Status = x.Status,
                     CreatedAt = x.CreatedAt
                 })
-                .SingleOrDefaultAsync();  // EF6 também suporta SingleOrDefaultAsync :contentReference[oaicite:2]{index=2}
+                .SingleOrDefaultAsync(); 
 
             return todo;
         }
@@ -62,7 +62,7 @@ namespace MV_to_do_list.Services
             };
 
             _context.Todos.Add(newTodo);
-            await _context.SaveChangesAsync(); // EF6 SaveChangesAsync :contentReference[oaicite:3]{index=3}
+            await _context.SaveChangesAsync(); 
 
             return new ResponseTodoDTO
             {
@@ -76,12 +76,12 @@ namespace MV_to_do_list.Services
 
         public async Task<bool> UpdateTodoStatusById(long id, UpdateTodoStatusDTO updateTodo)
         {
-            var todo = await _context.Todos.FindAsync(id); // FindAsync existe no EF6 :contentReference[oaicite:4]{index=4}
+            var todo = await _context.Todos.FindAsync(id); 
             if (todo == null)
                 return false;
 
             todo.Status = updateTodo.Status;
-            await _context.SaveChangesAsync(); // assíncrono no EF6 :contentReference[oaicite:5]{index=5}
+            await _context.SaveChangesAsync(); 
             return true;
         }
 
