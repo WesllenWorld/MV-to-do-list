@@ -15,6 +15,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class TodoListComponent implements OnInit {
   todos: Todo[] = [];
+  errorMessages: string[] = [];
 
   showAddForm = false;
   newTitle = '';
@@ -38,7 +39,7 @@ export class TodoListComponent implements OnInit {
   }
 
   addTodo() {
-    if (!this.newTitle.trim()) return;
+    //if (!this.newTitle.trim()) alert('O título é obrigatório.');
 
     const createTodo = {
       title: this.newTitle,
@@ -52,13 +53,22 @@ export class TodoListComponent implements OnInit {
         this.newDescription = '';
         this.showAddForm = false;
         this.cdr.detectChanges();
-      }
-      ,
-      error: err => {
-        console.error('Falha ao criar todo:', err);
+      },
+      error: (err: any) => {
+        if (err.status === 400 && err.error) {
+          const messages = Object.values(err.error.errors)
+            .map((x: any) => (Array.isArray(x) ? x.join(', ') : String(x)))
+            .join('\n');
+
+          alert('Erro ao criar todo:\n' + messages);
+        } else {
+          console.error(err);
+          alert('Erro inesperado ao criar todo');
+        }
       }
     });
   }
+
 
 
   updateTodo(id: number, updatedTodo: UpdateTodo) {

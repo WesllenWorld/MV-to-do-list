@@ -7,6 +7,9 @@
 <div *ngIf="showAddForm" class="add-todo-form">
   <input class="input" type="text" placeholder="Título" [(ngModel)]="newTitle" name="title" required />
   <textarea class="input" placeholder="Descrição" [(ngModel)]="newDescription" rows="4"></textarea>
+  <div *ngIf="errorMessages.length" class="form-errors">
+  <p *ngFor="let msg of errorMessages">{{ msg }}</p>
+</div>
   <button class="add-todo-button" (click)="addTodo()">Salvar</button>
 </div>
 

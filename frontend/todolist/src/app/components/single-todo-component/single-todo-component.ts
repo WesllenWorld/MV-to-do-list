@@ -24,10 +24,10 @@ export class SingleTodoComponent{
   @Output() delete = new EventEmitter<number>();
   @Output() update = new EventEmitter<{ id: number, updatedTodo: UpdateTodo }>();
 
-  onClick(): void {
-      this.TodoService.getTodoById(1).subscribe((todo) => {
-        console.log(todo);
-      });
+  // onClick(): void {
+  //     this.TodoService.getTodoById(1).subscribe((todo) => {
+  //       console.log(todo);
+  //     });
     
-  }
+  // }
 }
