@@ -13,7 +13,7 @@ export class TodoService {
   constructor(private http: HttpClient) { }
 
   getAllTodos(): Observable<Todo[]> {
-    //const url = $
+    
     return this.http.get<Todo[]>(this.apiUrl);
 
   }
@@ -33,7 +33,7 @@ export class TodoService {
     return this.http.put<void>(url, UpdateTodo);
   }
 
-  //falta o delete
+  
   deleteTodoById(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);

@@ -4,7 +4,7 @@ namespace MV_to_do_list.DTOs
 {
     public class CreateTodoDTO
     {
-        //permite todos com o mesmo nome
+        //permite title repetido
         [Required(ErrorMessage = "O nome é obrigatório")]
         [MinLength(3, ErrorMessage = "O nome deve ter pelo menos 3 caracteres")]
         [MaxLength(50, ErrorMessage = "O nome pode ter no máximo 50 caracteres")]
