@@ -7,7 +7,7 @@ using MV_to_do_list.Services;
 namespace MV_to_do_list.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/tarefas")]
     public class TodoController : ControllerBase
     {
         //injeção de dependência do Service
